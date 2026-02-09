@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import SpeakerCard from "./cards/SpeakerCard";
 import PromptCard from "./cards/PromptCard";
 import InvestmentCard from "./cards/InvestmentCard";
@@ -7,51 +6,44 @@ import BenefitsCard from "./cards/BenefitsCard";
 import MethodologyCard from "./cards/MethodologyCard";
 
 const HorizontalScrollSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
-
   return (
-    <>
-      {/* Desktop: horizontal scroll */}
-      <section ref={containerRef} className="hidden md:block relative h-[500vh]" id="proposta">
-        <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-          <div className="absolute top-8 left-8 z-10">
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              className="text-xs tracking-[0.3em] uppercase text-muted-foreground"
-            >
-              Proposta de Consultoria
-            </motion.p>
-          </div>
-          <motion.div style={{ x }} className="flex gap-8 pl-[10vw] pr-[30vw]">
-            <SpeakerCard />
-            <PromptCard />
-            <BenefitsCard />
-            <MethodologyCard />
-            <InvestmentCard />
-          </motion.div>
-        </div>
-      </section>
+    <section className="relative py-20 px-4 md:px-8 lg:px-16" id="proposta">
+      <div className="max-w-4xl mx-auto space-y-16 md:space-y-24">
+        {/* Section title */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
+            Proposta de Consultoria
+          </p>
+          <h2 className="text-3xl md:text-5xl font-black text-foreground">
+            Imersão IA: <span className="text-gradient-green">Gestão Estratégica</span>
+          </h2>
+          <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+            Capacitação Estratégica em Inteligência Artificial para Gestores
+          </p>
+        </motion.div>
 
-      {/* Mobile: vertical scroll */}
-      <section className="md:hidden px-4 py-16 space-y-6" id="proposta-mobile">
-        <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-8 px-2">
-          Proposta de Consultoria
-        </p>
+        {/* Card 1 - Slides from LEFT */}
         <SpeakerCard />
+
+        {/* Card 2 - Slides from RIGHT */}
         <PromptCard />
+
+        {/* Card 3 - Slides from BOTTOM */}
         <BenefitsCard />
+
+        {/* Card 4 - Slides from LEFT */}
         <MethodologyCard />
+
+        {/* Card 5 - Slides from RIGHT */}
         <InvestmentCard />
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

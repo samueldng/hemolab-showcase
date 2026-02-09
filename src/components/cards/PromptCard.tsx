@@ -2,17 +2,17 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const codeLines = [
-  { text: "# Prompt Estratégico para Hemolab", color: "text-muted-foreground" },
+  { text: "# The Strategic Lab Management Prompt", color: "text-muted-foreground" },
   { text: "", color: "" },
-  { text: 'role: "Analista de Laboratório"', color: "text-primary" },
-  { text: 'contexto: "Hemograma completo"', color: "text-primary" },
+  { text: 'Role: Senior Lab Consultant', color: "text-primary" },
+  { text: 'Context: [PROBLEM]', color: "text-primary" },
   { text: "", color: "" },
-  { text: "objetivo:", color: "text-accent" },
-  { text: '  - "Automatizar triagem de resultados"', color: "text-foreground" },
-  { text: '  - "Detectar anomalias com IA"', color: "text-foreground" },
-  { text: '  - "Gerar laudos padronizados"', color: "text-foreground" },
+  { text: "Objective:", color: "text-accent" },
+  { text: '  - "4 seasons and concentrations"', color: "text-foreground" },
+  { text: '  - "Each phase serves the following"', color: "text-foreground" },
+  { text: '  - "macroperspectives..."', color: "text-foreground" },
   { text: "", color: "" },
-  { text: 'output: "Laudo + Alerta de Risco"', color: "text-glow-green" },
+  { text: 'Output: Portuguese/pt-br', color: "text-glow-green" },
 ];
 
 const PromptCard = () => {
@@ -22,7 +22,6 @@ const PromptCard = () => {
     const interval = setInterval(() => {
       setVisibleLines((prev) => {
         if (prev >= codeLines.length) {
-          // Reset after a pause
           setTimeout(() => setVisibleLines(0), 2000);
           return prev;
         }
@@ -34,19 +33,22 @@ const PromptCard = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-      viewport={{ once: true }}
-      className="min-w-[340px] md:min-w-[500px] lg:min-w-[600px] flex-shrink-0 rounded-2xl border border-border bg-card p-8 md:p-10"
+      initial={{ opacity: 0, x: 80 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="w-full rounded-2xl border border-border bg-card p-8 md:p-10"
     >
       <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-2">
-        Diferencial
+        Diferencial Técnico
       </p>
-      <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
+      <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
         Engenharia de{" "}
         <span className="text-gradient-green">Prompt</span>
       </h3>
+      <p className="text-sm text-muted-foreground mb-6">
+        Why English? <span className="text-primary font-semibold">40% more efficient logic.</span>
+      </p>
 
       <div className="rounded-xl bg-background border border-border p-6 font-mono text-sm overflow-hidden">
         <div className="flex items-center gap-2 mb-4">
@@ -54,7 +56,7 @@ const PromptCard = () => {
           <div className="w-3 h-3 rounded-full bg-muted-foreground/60" />
           <div className="w-3 h-3 rounded-full bg-primary/60" />
           <span className="text-xs text-muted-foreground ml-2">
-            prompt_hemolab.yaml
+            strategic_prompt.yaml
           </span>
         </div>
 
@@ -78,8 +80,8 @@ const PromptCard = () => {
       </div>
 
       <p className="text-muted-foreground mt-6 text-sm leading-relaxed">
-        Prompts customizados para cada processo do laboratório, gerando
-        resultados consistentes e escaláveis com IA generativa.
+        Prompts estratégicos escritos em inglês para máxima eficiência lógica,
+        com output em português. Cada prompt é customizado para os processos do laboratório.
       </p>
     </motion.div>
   );

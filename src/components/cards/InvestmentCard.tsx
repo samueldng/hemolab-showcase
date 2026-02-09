@@ -25,11 +25,11 @@ const InvestmentCard = () => {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      viewport={{ once: true }}
-      className="min-w-[340px] md:min-w-[500px] lg:min-w-[600px] flex-shrink-0 rounded-2xl border border-accent/30 bg-card p-8 md:p-10 card-glow-red"
+      initial={{ opacity: 0, x: 80 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="w-full rounded-2xl border border-accent/30 bg-card p-8 md:p-10 card-glow-red"
     >
       <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-2">
         Investimento
@@ -39,6 +39,7 @@ const InvestmentCard = () => {
       </h3>
 
       <div className="text-center py-8">
+        <p className="text-sm text-muted-foreground uppercase tracking-widest mb-2">Apenas</p>
         <div className="flex items-baseline justify-center gap-1">
           <span className="text-2xl font-medium text-muted-foreground">R$</span>
           <span className="text-7xl md:text-8xl font-black text-foreground tabular-nums">
@@ -51,10 +52,10 @@ const InvestmentCard = () => {
 
       <div className="space-y-4 mt-8">
         {[
-          "Sessões personalizadas para o Hemolab",
-          "Material de apoio e documentação",
-          "Prompts customizados para cada setor",
-          "Suporte pós-consultoria por 7 dias",
+          "Treinamento Presencial Especializado",
+          "Material Digital e Biblioteca de Prompts",
+          "Suporte 15 Dias via WhatsApp",
+          "Certificação Oficial (LogiStack BR)",
         ].map((item, i) => (
           <motion.div
             key={i}
@@ -84,6 +85,10 @@ const InvestmentCard = () => {
       >
         Agendar Consultoria
       </motion.a>
+
+      <p className="text-xs text-muted-foreground text-center mt-4 leading-relaxed">
+        📌 Material 100% gerado e estruturado com auxílio de IA, demonstrando a agilidade na prática.
+      </p>
     </motion.div>
   );
 };
