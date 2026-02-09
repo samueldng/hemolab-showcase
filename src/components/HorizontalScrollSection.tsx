@@ -14,12 +14,12 @@ const HorizontalScrollSection = () => {
     offset: ["start start", "end end"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
 
   return (
     <>
       {/* Desktop: horizontal scroll */}
-      <section ref={containerRef} className="hidden md:block relative h-[400vh]" id="proposta">
+      <section ref={containerRef} className="hidden md:block relative h-[500vh]" id="proposta">
         <div className="sticky top-0 h-screen flex items-center overflow-hidden">
           <div className="absolute top-8 left-8 z-10">
             <motion.p
