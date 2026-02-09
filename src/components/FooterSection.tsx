@@ -1,4 +1,5 @@
 import logoHemolab from "@/assets/logo-hemolab.svg";
+import logoLogistack from "@/assets/logo-logistack.png";
 
 const FooterSection = () => {
   return (
@@ -7,7 +8,7 @@ const FooterSection = () => {
         <div className="flex items-center gap-4">
           <img src={logoHemolab} alt="Hemolab" className="h-8 brightness-0 invert opacity-60" />
           <span className="text-muted-foreground text-sm">×</span>
-          <span className="text-sm font-semibold text-foreground">LogiStack BR</span>
+          <img src={logoLogistack} alt="LogiStack BR" className="h-10 brightness-0 invert opacity-80" />
         </div>
         <p className="text-sm text-muted-foreground">
           © {new Date().getFullYear()} Samuel Oliveira — Consultoria em IA. Todos os direitos reservados.
