@@ -1,79 +1,69 @@
-# Welcome to your Lovable project
+# Hemolab Showcase
 
-## Project info
+## Sobre o Projeto
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Este projeto e uma aplicacao de demonstracao desenvolvida para apresentar capacidades modernas de desenvolvimento front-end. Utiliza uma combinacao de tecnologias robustas para criar uma interface de usuario interativa e responsiva. O foco principal e a utilizacao de componentes reutilizaveis e uma arquitetura bem definida.
 
-## How can I edit this code?
+## Tecnologias Utilizadas
 
-There are several ways of editing your application.
+O desenvolvimento deste projeto baseou-se nas seguintes bibliotecas e ferramentas:
 
-**Use Lovable**
+### Frameworks e Linguagens
+- **React**: Biblioteca JavaScript para construcao de interfaces de usuario.
+- **TypeScript**: Superset do JavaScript que adiciona tipagem estatica.
+- **Vite**: Ferramenta de build que oferece um ambiente de desenvolvimento rapido.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### Estilizacao e Componentes
+- **Tailwind CSS**: Framework CSS utilitario para estilizacao rapida.
+- **Shadcn UI**: Colecao de componentes de interface reutilizaveis construidos com Radix UI e Tailwind CSS.
+- **Radix UI**: Biblioteca de primitivos de interface acessiveis e nao estilizados para React.
+- **Lucide React**: Biblioteca de icones.
 
-Changes made via Lovable will be committed automatically to this repo.
+### Gerenciamento de Estado e Dados
+- **TanStack Query (React Query)**: Gerenciamento de estado assincrono e busca de dados.
+- **React Hook Form**: Gerenciamento de formularios performaticos e flexiveis.
+- **Zod**: Validacao de esquema TypeScript-first.
 
-**Use your preferred IDE**
+### Outras Bibliotecas
+- **Framer Motion**: Biblioteca para animacoes declarativas.
+- **Recharts**: Biblioteca para construcao de graficos compostos.
+- **React Router DOM**: Gerenciamento de rotas e navegacao no lado do cliente.
+- **Sonner**: Componente de notificacao toast opinativo.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Como Executar o Projeto Localmente
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Siga os passos abaixo para configurar e executar a aplicacao em seu ambiente local.
 
-Follow these steps:
+### Pre-requisitos
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Certifique-se de ter o **Node.js** (versao 18 ou superior recomendada) e o **npm** (Node Package Manager) instalados em sua maquina.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Instalacao
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. Clone o repositorio ou baixe o codigo-fonte para o seu computador.
+2. Abra o terminal e navegue ate a pasta raiz do projeto.
+3. Instale as dependencias executando o seguinte comando:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
+```
+
+### Execucao em Desenvolvimento
+
+Para iniciar o servidor de desenvolvimento e visualizar a aplicacao:
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Apos executar o comando, o terminal exibira o endereco local (geralmente http://localhost:8080 ou similar) onde voce pode acessar a aplicacao.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Build para Producao
 
-**Use GitHub Codespaces**
+Para gerar a versao otimizada para producao:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+npm run build
+```
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn/ui
-- Tailwind CSS
-- Framer Motion
-- Tanstack Query
-- React Hook Form
-- Zod
-- Lucide React
-- Recharts
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Os arquivos de build serao gerados na pasta `dist`.
