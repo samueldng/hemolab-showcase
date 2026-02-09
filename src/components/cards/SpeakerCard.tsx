@@ -38,7 +38,7 @@ const SpeakerCard = () => {
           <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
             Fundador da LogiStack BR & Tech Lead na SEMUS (Secretaria Municipal
             de Saúde de Bacabal). Especialista em inteligência artificial
-            aplicada ao setor de saúde, automação de processos laboratoriais e Clínicas.
+            aplicada ao setor de saúde, automação de processos laboratoriais e clínicas.
           </p>
 
           <div className="flex flex-wrap gap-2 mt-6 justify-center md:justify-start">
