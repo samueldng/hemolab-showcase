@@ -24,7 +24,7 @@ const HorizontalScrollSection = () => {
             Imersão IA: <span className="text-gradient-green">Gestão Estratégica</span>
           </h2>
           <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
-            Capacitação Estratégica em Inteligência Artificial para Gestores
+            Capacitação Estratégica em Inteligência Artificial para Gestores e Líderes
           </p>
         </motion.div>
 

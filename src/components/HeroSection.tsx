@@ -64,7 +64,7 @@ const HeroSection = () => {
           variants={fadeUp}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Capacitação Estratégica em Inteligência Artificial para Gestores
+          Capacitação Estratégica em Inteligência Artificial para Gestores e Líderes
           do <span className="text-gradient-green font-semibold">Hemolab</span> — Dr. Alexson Carvalho.
         </motion.p>
 
