@@ -1,20 +1,20 @@
 import { motion } from "framer-motion";
 
 const steps = [
-  { num: "01", title: "Diagnóstico", desc: "Mapeamento de processos atuais do Hemolab" },
-  { num: "02", title: "Estratégia", desc: "Design de prompts e fluxos de IA personalizados" },
-  { num: "03", title: "Implementação", desc: "Treinamento da equipe e integração com ferramentas" },
-  { num: "04", title: "Otimização", desc: "Acompanhamento de resultados e ajustes contínuos" },
+  { num: "01", title: "Diagnóstico", desc: "Mapeamento de processos e gargalos atuais do Hemolab" },
+  { num: "02", title: "Fundamentos", desc: "O que é IA de verdade + Segurança e LGPD na Saúde" },
+  { num: "03", title: "Live Demo", desc: "IA no código com demonstrações práticas em tempo real" },
+  { num: "04", title: "Laboratório", desc: "Soluções com ferramentas: Adapta One, Abacus.AI, Tess AI" },
 ];
 
 const MethodologyCard = () => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      viewport={{ once: true }}
-      className="min-w-[340px] md:min-w-[500px] lg:min-w-[600px] flex-shrink-0 rounded-2xl border border-border bg-card p-8 md:p-10"
+      initial={{ opacity: 0, x: -80 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="w-full rounded-2xl border border-border bg-card p-8 md:p-10"
     >
       <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-2">
         Metodologia
@@ -40,9 +40,6 @@ const MethodologyCard = () => {
               <h4 className="font-semibold text-foreground mb-1">{step.title}</h4>
               <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
             </div>
-            {i < steps.length - 1 && (
-              <div className="absolute ml-6 mt-12 w-px h-6 bg-border hidden md:block" />
-            )}
           </motion.div>
         ))}
       </div>

@@ -51,10 +51,9 @@ const HeroSection = () => {
           variants={fadeUp}
           className="text-4xl md:text-6xl lg:text-7xl font-black leading-[0.95] tracking-tight mb-6"
         >
-          <span className="text-foreground">Transforme o</span>
+          <span className="text-foreground">Gestão Estratégica</span>
           <br />
-          <span className="text-gradient-green">Hemolab</span>
-          <span className="text-foreground"> com </span>
+          <span className="text-foreground">e Eficiência com </span>
           <span className="text-gradient-red">IA</span>
         </motion.h1>
 
@@ -65,9 +64,8 @@ const HeroSection = () => {
           variants={fadeUp}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Consultoria especializada em engenharia de prompt e automação
-          inteligente para o setor laboratorial. Resultados reais com
-          tecnologia de ponta.
+          Capacitação Estratégica em Inteligência Artificial para Gestores
+          do <span className="text-gradient-green font-semibold">Hemolab</span> — Dr. Alexson Carvalho.
         </motion.p>
 
         <motion.div
