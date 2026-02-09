@@ -1,8 +1,10 @@
+/* 1. Mova o import para o topo absoluto do arquivo */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* 2. Só agora vêm as diretivas do Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @layer base {
   :root {
@@ -15,6 +17,7 @@
     --popover: 0 0% 6%;
     --popover-foreground: 0 0% 95%;
 
+    /* Cor institucional Hemolab (Verde #365747) */
     --primary: 152 24% 31%;
     --primary-foreground: 0 0% 98%;
 
@@ -24,6 +27,7 @@
     --muted: 0 0% 12%;
     --muted-foreground: 0 0% 55%;
 
+    /* Cor institucional LogiStack (Vermelho #D00F15) */
     --accent: 0 90% 45%;
     --accent-foreground: 0 0% 98%;
 
@@ -45,7 +49,7 @@
     --sidebar-border: 0 0% 14%;
     --sidebar-ring: 152 24% 31%;
 
-    /* Custom tokens */
+    /* Custom tokens para os efeitos Glow */
     --glow-green: 152 40% 40%;
     --glow-red: 0 90% 50%;
     --surface-elevated: 0 0% 8%;
@@ -66,11 +70,17 @@
     font-family: 'Inter', system-ui, sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Inter', system-ui, sans-serif;
   }
 
-  code, pre {
+  code,
+  pre {
     font-family: 'JetBrains Mono', monospace;
   }
 }
@@ -87,7 +97,7 @@
   }
 
   .bg-grid {
-    background-image: 
+    background-image:
       linear-gradient(hsl(0 0% 14% / 0.5) 1px, transparent 1px),
       linear-gradient(90deg, hsl(0 0% 14% / 0.5) 1px, transparent 1px);
     background-size: 60px 60px;
@@ -105,6 +115,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
