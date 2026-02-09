@@ -76,7 +76,8 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="#proposta"
+            href="/modelo_proposta_oficial.pdf"
+            download="Proposta_Hemolab_LogiStack.pdf"
             className="px-8 py-4 rounded-lg bg-accent text-accent-foreground font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-accent/20"
           >
             Ver Proposta
@@ -94,7 +95,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="mt-16 flex justify-center"
         >
           <div className="flex flex-col items-center gap-2 text-muted-foreground">
             <span className="text-xs tracking-widest uppercase">Scroll</span>

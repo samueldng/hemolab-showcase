@@ -57,7 +57,7 @@ const SpeakerCard = () => {
 
           <div className="flex flex-wrap gap-3 mt-6 justify-center md:justify-start">
             <a
-              href="https://linkedin.com/in/samuel-oliveira"
+              href="https://www.linkedin.com/in/samuel-oliveira-26bb7014a/"
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2 rounded-lg border border-primary/30 text-primary text-sm font-semibold hover:bg-primary/10 transition-colors"
@@ -65,7 +65,7 @@ const SpeakerCard = () => {
               LinkedIn
             </a>
             <a
-              href="https://jaummdev.com.br"
+              href="https://my-portfolio-sam-oliveira.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2 rounded-lg border border-accent/30 text-accent text-sm font-semibold hover:bg-accent/10 transition-colors"

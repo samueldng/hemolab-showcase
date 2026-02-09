@@ -57,8 +57,14 @@ This project is built with:
 - Vite
 - TypeScript
 - React
-- shadcn-ui
+- shadcn/ui
 - Tailwind CSS
+- Framer Motion
+- Tanstack Query
+- React Hook Form
+- Zod
+- Lucide React
+- Recharts
 
 ## How can I deploy this project?
 
