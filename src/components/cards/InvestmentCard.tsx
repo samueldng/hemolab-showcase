@@ -36,20 +36,16 @@ const InvestmentCard = () => {
   const handleConfirm = async () => {
     setIsSubmitting(true);
 
-    // Simulate "Backend Magic" - Email Notification & AI Processing
-    // In a real app, this would be an API call to send an email to samuel-dng@outlook.com
-    console.log("Sending email notification to: samuel-dng@outlook.com");
-
-    await new Promise((resolve) => setTimeout(resolve, 1500)); // Increased delay to simulate network request
+    // Simulate short processing delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setIsSubmitting(false);
     setIsOpen(true);
 
-
     // Fire confetti
     const duration = 3 * 1000;
     const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 }; // Higher z-index for modal
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
 
     const random = (min: number, max: number) => Math.random() * (max - min) + min;
 
@@ -64,6 +60,14 @@ const InvestmentCard = () => {
       confetti({ ...defaults, particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } });
       confetti({ ...defaults, particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } });
     }, 250);
+
+    // WhatsApp Redirection after 4.5s delay (to show celebration)
+    setTimeout(() => {
+      const phoneNumber = "5599985143916";
+      const message = encodeURIComponent("Proposta aceita!");
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(whatsappUrl, "_blank");
+    }, 4500);
   };
 
   return (
