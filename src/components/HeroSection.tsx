@@ -75,13 +75,12 @@ const HeroSection = () => {
           variants={fadeUp}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <a
-            href="/modelo_proposta_oficial.pdf"
-            download="Proposta_Hemolab_LogiStack.pdf"
+          <button
+            onClick={() => alert("Em breve")}
             className="px-8 py-4 rounded-lg bg-accent text-accent-foreground font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-accent/20"
           >
-            Ver Proposta
-          </a>
+            Emitir Certificado
+          </button>
           <a
             href="#palestrante"
             className="px-8 py-4 rounded-lg border border-border bg-card text-card-foreground font-semibold text-lg transition-all hover:border-primary/50 hover:bg-primary/5"

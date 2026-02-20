@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import SpeakerCard from "./cards/SpeakerCard";
 import PromptCard from "./cards/PromptCard";
-import InvestmentCard from "./cards/InvestmentCard";
 import BenefitsCard from "./cards/BenefitsCard";
 import MethodologyCard from "./cards/MethodologyCard";
 
@@ -40,8 +39,6 @@ const HorizontalScrollSection = () => {
         {/* Card 4 - Slides from LEFT */}
         <MethodologyCard />
 
-        {/* Card 5 - Slides from RIGHT */}
-        <InvestmentCard />
       </div>
     </section>
   );
