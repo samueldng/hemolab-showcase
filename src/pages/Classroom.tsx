@@ -1,8 +1,21 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { io, Socket } from "socket.io-client";
-import { ArrowLeft, Send, Image, Paperclip, Users, MessageSquare, X } from "lucide-react";
+import { createClient } from "@supabase/supabase-js";
+import {
+    ArrowLeft,
+    Send,
+    Image,
+    Paperclip,
+    Users,
+    MessageSquare,
+} from "lucide-react";
+
+// ─── Supabase Config ─────────────────────────────────────────────────
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "";
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ─── Types ───────────────────────────────────────────────────────────
 interface ChatMessage {
@@ -16,10 +29,10 @@ interface ChatMessage {
 }
 
 // ─── Constants ───────────────────────────────────────────────────────
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || `http://${window.location.hostname}:3001`;
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const CHANNEL_NAME = "sala-de-aula";
+const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB (broadcast limit)
 
-// ─── Helper ──────────────────────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────
 function formatTime(iso: string) {
     return new Date(iso).toLocaleTimeString("pt-BR", {
         hour: "2-digit",
@@ -31,6 +44,10 @@ function formatFileSize(bytes: number) {
     if (bytes < 1024) return bytes + " B";
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
     return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+}
+
+function generateId() {
+    return Date.now().toString(36) + "-" + Math.random().toString(36).substr(2, 6);
 }
 
 // ─── Entry Screen ────────────────────────────────────────────────────
@@ -136,9 +153,7 @@ function MessageBubble({ msg, isOwn }: { msg: ChatMessage; isOwn: boolean }) {
             className={`flex ${isOwn ? "justify-end" : "justify-start"} mb-3`}
         >
             <div
-                className={`max-w-[80%] sm:max-w-[70%] ${isOwn
-                    ? "bg-primary/20 border-primary/30"
-                    : "bg-card border-border"
+                className={`max-w-[80%] sm:max-w-[70%] ${isOwn ? "bg-primary/20 border-primary/30" : "bg-card border-border"
                     } border rounded-2xl ${isOwn ? "rounded-br-md" : "rounded-bl-md"
                     } px-4 py-3 shadow-md`}
             >
@@ -203,72 +218,107 @@ function MessageBubble({ msg, isOwn }: { msg: ChatMessage; isOwn: boolean }) {
 }
 
 // ─── Chat Room ───────────────────────────────────────────────────────
-function ChatRoom({
-    userName,
-    socket,
-}: {
-    userName: string;
-    socket: Socket;
-}) {
+function ChatRoom({ userName }: { userName: string }) {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState("");
     const [onlineCount, setOnlineCount] = useState(0);
-    const [isConnected, setIsConnected] = useState(socket.connected);
+    const [isConnected, setIsConnected] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const imageInputRef = useRef<HTMLInputElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const channelRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
 
     const scrollToBottom = useCallback(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, []);
 
     useEffect(() => {
-        function onConnect() {
-            setIsConnected(true);
-        }
-        function onDisconnect() {
-            setIsConnected(false);
-        }
-        function onHistory(history: ChatMessage[]) {
-            setMessages(history);
-        }
-        function onMessage(msg: ChatMessage) {
-            setMessages((prev) => [...prev, msg]);
-        }
-        function onOnlineCount(count: number) {
-            setOnlineCount(count);
-        }
+        const channel = supabase.channel(CHANNEL_NAME, {
+            config: { broadcast: { self: true } },
+        });
 
-        socket.on("connect", onConnect);
-        socket.on("disconnect", onDisconnect);
-        socket.on("history", onHistory);
-        socket.on("message", onMessage);
-        socket.on("onlineCount", onOnlineCount);
+        // Listen for chat messages
+        channel.on("broadcast", { event: "chat-message" }, ({ payload }) => {
+            setMessages((prev) => [...prev, payload as ChatMessage]);
+        });
+
+        // Track presence
+        channel.on("presence", { event: "sync" }, () => {
+            const state = channel.presenceState();
+            const count = Object.keys(state).reduce(
+                (acc, key) => acc + state[key].length,
+                0
+            );
+            setOnlineCount(count);
+        });
+
+        channel.on("presence", { event: "join" }, ({ newPresences }) => {
+            newPresences.forEach((p: any) => {
+                if (p.user_name && p.user_name !== userName) {
+                    const sysMsg: ChatMessage = {
+                        id: generateId(),
+                        type: "system",
+                        content: `${p.user_name} entrou na sala`,
+                        timestamp: new Date().toISOString(),
+                    };
+                    setMessages((prev) => [...prev, sysMsg]);
+                }
+            });
+        });
+
+        channel.on("presence", { event: "leave" }, ({ leftPresences }) => {
+            leftPresences.forEach((p: any) => {
+                if (p.user_name) {
+                    const sysMsg: ChatMessage = {
+                        id: generateId(),
+                        type: "system",
+                        content: `${p.user_name} saiu da sala`,
+                        timestamp: new Date().toISOString(),
+                    };
+                    setMessages((prev) => [...prev, sysMsg]);
+                }
+            });
+        });
+
+        channel.subscribe(async (status) => {
+            if (status === "SUBSCRIBED") {
+                setIsConnected(true);
+                await channel.track({ user_name: userName });
+            }
+        });
+
+        channelRef.current = channel;
 
         return () => {
-            socket.off("connect", onConnect);
-            socket.off("disconnect", onDisconnect);
-            socket.off("history", onHistory);
-            socket.off("message", onMessage);
-            socket.off("onlineCount", onOnlineCount);
+            channel.unsubscribe();
         };
-    }, [socket]);
+    }, [userName]);
 
     useEffect(() => {
         scrollToBottom();
     }, [messages, scrollToBottom]);
+
+    const sendMessage = (msg: Omit<ChatMessage, "id" | "timestamp">) => {
+        const fullMsg: ChatMessage = {
+            ...msg,
+            id: generateId(),
+            timestamp: new Date().toISOString(),
+        };
+
+        channelRef.current?.send({
+            type: "broadcast",
+            event: "chat-message",
+            payload: fullMsg,
+        });
+    };
 
     const sendText = (e: React.FormEvent) => {
         e.preventDefault();
         const trimmed = input.trim();
         if (!trimmed) return;
 
-        socket.emit("message", {
-            type: "text",
-            userName,
-            content: trimmed,
-        });
+        sendMessage({ type: "text", userName, content: trimmed });
         setInput("");
         inputRef.current?.focus();
     };
@@ -281,7 +331,7 @@ function ChatRoom({
 
         const reader = new FileReader();
         reader.onload = () => {
-            socket.emit("message", {
+            sendMessage({
                 type,
                 userName,
                 content: reader.result as string,
@@ -326,7 +376,7 @@ function ChatRoom({
                                         }`}
                                 />
                                 <span className="text-xs text-muted-foreground">
-                                    {isConnected ? "Conectado" : "Desconectado"}
+                                    {isConnected ? "Conectado" : "Conectando..."}
                                 </span>
                             </div>
                         </div>
@@ -372,7 +422,6 @@ function ChatRoom({
                     onSubmit={sendText}
                     className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-2"
                 >
-                    {/* Hidden file inputs */}
                     <input
                         ref={imageInputRef}
                         type="file"
@@ -387,7 +436,6 @@ function ChatRoom({
                         onChange={onFileSelect}
                     />
 
-                    {/* Image button */}
                     <button
                         type="button"
                         onClick={() => imageInputRef.current?.click()}
@@ -397,7 +445,6 @@ function ChatRoom({
                         <Image className="w-5 h-5" />
                     </button>
 
-                    {/* File button */}
                     <button
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
@@ -407,7 +454,6 @@ function ChatRoom({
                         <Paperclip className="w-5 h-5" />
                     </button>
 
-                    {/* Text input */}
                     <input
                         ref={inputRef}
                         type="text"
@@ -417,7 +463,6 @@ function ChatRoom({
                         className="flex-1 px-4 py-2.5 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
                     />
 
-                    {/* Send button */}
                     <button
                         type="submit"
                         disabled={!input.trim()}
@@ -434,33 +479,10 @@ function ChatRoom({
 // ─── Main Page Component ─────────────────────────────────────────────
 export default function Classroom() {
     const [userName, setUserName] = useState<string | null>(null);
-    const [socket, setSocket] = useState<Socket | null>(null);
 
-    const handleJoin = useCallback((name: string) => {
-        const newSocket = io(SOCKET_URL, {
-            transports: ["websocket", "polling"],
-        });
-
-        newSocket.on("connect", () => {
-            newSocket.emit("join", name);
-        });
-
-        setSocket(newSocket);
-        setUserName(name);
-    }, []);
-
-    // Cleanup on unmount
-    useEffect(() => {
-        return () => {
-            if (socket) {
-                socket.disconnect();
-            }
-        };
-    }, [socket]);
-
-    if (!userName || !socket) {
-        return <EntryScreen onJoin={handleJoin} />;
+    if (!userName) {
+        return <EntryScreen onJoin={setUserName} />;
     }
 
-    return <ChatRoom userName={userName} socket={socket} />;
+    return <ChatRoom userName={userName} />;
 }
