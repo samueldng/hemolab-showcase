@@ -16,7 +16,7 @@ interface ChatMessage {
 }
 
 // ─── Constants ───────────────────────────────────────────────────────
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:3001";
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || `http://${window.location.hostname}:3001`;
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 // ─── Helper ──────────────────────────────────────────────────────────
@@ -137,8 +137,8 @@ function MessageBubble({ msg, isOwn }: { msg: ChatMessage; isOwn: boolean }) {
         >
             <div
                 className={`max-w-[80%] sm:max-w-[70%] ${isOwn
-                        ? "bg-primary/20 border-primary/30"
-                        : "bg-card border-border"
+                    ? "bg-primary/20 border-primary/30"
+                    : "bg-card border-border"
                     } border rounded-2xl ${isOwn ? "rounded-br-md" : "rounded-bl-md"
                     } px-4 py-3 shadow-md`}
             >

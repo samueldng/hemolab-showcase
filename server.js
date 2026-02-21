@@ -84,7 +84,9 @@ io.on('connection', (socket) => {
 });
 
 const PORT = 3001;
-server.listen(PORT, () => {
+const HOST = '0.0.0.0';
+server.listen(PORT, HOST, () => {
     console.log(`\n🎓 Servidor Sala de Aula rodando na porta ${PORT}`);
+    console.log(`   Acessível em toda a rede local (${HOST}:${PORT})`);
     console.log(`   Mensagens em memória (sem banco de dados)\n`);
 });
