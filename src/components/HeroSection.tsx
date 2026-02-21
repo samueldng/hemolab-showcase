@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import logoHemolab from "@/assets/logo-hemolab.svg";
 import SpotlightBackground from "./SpotlightBackground";
 
@@ -81,12 +82,12 @@ const HeroSection = () => {
           >
             Emitir Certificado
           </button>
-          <a
-            href="#palestrante"
+          <Link
+            to="/sala-de-aula"
             className="px-8 py-4 rounded-lg border border-border bg-card text-card-foreground font-semibold text-lg transition-all hover:border-primary/50 hover:bg-primary/5"
           >
-            Sobre o Consultor
-          </a>
+            Sala de Aula
+          </Link>
         </motion.div>
 
         {/* Scroll indicator */}
